@@ -260,9 +260,9 @@
     <div class="post-section">
         <h2>POSTS</h2>
         <hr>
-        <form id="postForm">
-            <input type="text" id="postInput" placeholder="Please do type your thoughts on this. And don't forget to post your email.">
-            <button type="submit" id="postSubmit">Submit</button>
+        <form id="postForm" action="mailto:adarshdabral@gmail.com" method="post" enctype="text/plain">
+            <input type="text" id="postInput" name="message" placeholder="Please type your thoughts here. Don't forget to include your email.">
+            <button type="submit" id="postSubmit">Send</button>
         </form>
         <div id="posts"></div>
     </div>
@@ -297,10 +297,16 @@
             var postsContainer = document.getElementById('posts');
 
             if (postInput.value.trim() !== '') {
+                // Display the message on the page
                 var postElement = document.createElement('div');
                 postElement.className = 'post';
                 postElement.textContent = postInput.value;
                 postsContainer.insertBefore(postElement, postsContainer.firstChild);
+
+                // Attempt to send email
+                var mailtoLink = 'mailto:adarshdabral@gmail.com?subject=New Post&body=' + encodeURIComponent(postInput.value);
+                window.location.href = mailtoLink;
+
                 postInput.value = '';
             }
         });
